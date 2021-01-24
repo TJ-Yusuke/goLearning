@@ -4,11 +4,11 @@ package main
 type Dictionary map[string]string
 
 var (
-	// ErrNotFound は definition が与えられた word を見つけることができなかったという意味
+	// ErrNotFound は definition が与えられた word を見つけることができなかった時のエラー
 	ErrNotFound = DictionaryErr("could not find the word you were looking for")
-	// ErrWordExists は既にある word を追加しようとしていますという意味
+	// ErrWordExists は既にある word を追加しようとしてる時のエラー
 	ErrWordExists = DictionaryErr("cannot add word because it already exists")
-	// ErrWordDoesNotExist は Update しようとするもその定義自体が存在しなかったという意味
+	// ErrWordDoesNotExist は Update しようとするもその定義自体が存在しなかった時のエラー
 	ErrWordDoesNotExist = DictionaryErr("cannot update because it does not exist")
 )
 
