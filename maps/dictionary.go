@@ -1,18 +1,23 @@
 package main
 
+// Dictionary は definition と word を保持するもの
 type Dictionary map[string]string
 
 var (
-	ErrNotFound   = DictionaryErr("could not find the word you were looking for")
+	// ErrNotFound は definition が与えられた word を見つけることができなかったという意味
+	ErrNotFound = DictionaryErr("could not find the word you were looking for")
+	// ErrWordExists は既にある word を追加しようとしていますという意味
 	ErrWordExists = DictionaryErr("cannot add word because it already exists")
 )
 
+// DictionaryErr は dictionary を処理する際に起こりうるエラーをまとめたもの
 type DictionaryErr string
 
 func (e DictionaryErr) Error() string {
 	return string(e)
 }
 
+// dictionary の中の word を Search して見つけるためのメソッド
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
 
@@ -23,6 +28,7 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
+// dictionary に definition と word を Add するためのメソッド
 func (d Dictionary) Add(word, definition string) error {
 	_, err := d.Search(word)
 
@@ -38,6 +44,7 @@ func (d Dictionary) Add(word, definition string) error {
 	return nil
 }
 
+// 既にある定義を与えられた word で Update するためのメソッド
 func (d Dictionary) Update(word, definition string) {
 	d[word] = definition
 }
