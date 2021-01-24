@@ -19,7 +19,7 @@ func (e DictionaryErr) Error() string {
 	return string(e)
 }
 
-// dictionary の中の word を Search して見つけるためのメソッド
+// Dictionary の中の word を Search して見つけるためのメソッド
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
 
@@ -30,7 +30,7 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
-// dictionary に definition と word を Add するためのメソッド
+// Dictionary に definition と word を Add するためのメソッド
 func (d Dictionary) Add(word, definition string) error {
 	_, err := d.Search(word)
 
@@ -61,4 +61,9 @@ func (d Dictionary) Update(word, definition string) error {
 	}
 
 	return nil
+}
+
+// 引数に与えられた word が Dictionary にあるとその word と 値を Delete する
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
 }
