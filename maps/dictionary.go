@@ -8,6 +8,8 @@ var (
 	ErrNotFound = DictionaryErr("could not find the word you were looking for")
 	// ErrWordExists は既にある word を追加しようとしていますという意味
 	ErrWordExists = DictionaryErr("cannot add word because it already exists")
+	// ErrWordDoesNotExist は Update しようとするもその定義自体が存在しなかったという意味
+	ErrWordDoesNotExist = DictionaryErr("cannot update because it does not exist")
 )
 
 // DictionaryErr は dictionary を処理する際に起こりうるエラーをまとめたもの
@@ -45,6 +47,18 @@ func (d Dictionary) Add(word, definition string) error {
 }
 
 // 既にある定義を与えられた word で Update するためのメソッド
-func (d Dictionary) Update(word, definition string) {
-	d[word] = definition
+func (d Dictionary) Update(word, definition string) error {
+	//d[word] = definition
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = definition
+	default:
+		return err
+	}
+
+	return nil
 }
