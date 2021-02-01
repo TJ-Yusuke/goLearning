@@ -50,22 +50,6 @@ func containsLine(l Line, ls []Line) bool {
 }
 
 func TestSVGWriterSecondHand(t *testing.T) {
-	//tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
-	//
-	//b := bytes.Buffer{}
-	//clockface.SVGWriter(&b, tm)
-	//
-	//svg := SVG{}
-	//xml.Unmarshal(b.Bytes(), &svg)
-	//
-	//want := Line{150, 150, 150, 60}
-	//
-	//for _, line := range svg.Line {
-	//	if line == want {
-	//		return
-	//	}
-	//}
-
 	cases := []struct {
 		time time.Time
 		line Line
