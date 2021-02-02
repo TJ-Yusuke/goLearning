@@ -32,23 +32,6 @@ type Line struct {
 	Y2 float64 `xml:"y2,attr"`
 }
 
-func simpleTime(hours, minutes, seconds int) time.Time {
-	return time.Date(312, time.October, 28, hours, minutes, seconds, 0, time.UTC)
-}
-
-func testName(t time.Time) string {
-	return t.Format("15:04:05")
-}
-
-func containsLine(l Line, ls []Line) bool {
-	for _, line := range ls {
-		if line == l {
-			return true
-		}
-	}
-	return false
-}
-
 func TestSVGWriterSecondHand(t *testing.T) {
 	cases := []struct {
 		time time.Time
@@ -80,13 +63,19 @@ func TestSVGWriterSecondHand(t *testing.T) {
 
 }
 
-func TestSecondHandAt30Seconds(t *testing.T) {
-	tm := time.Date(1337, time.January, 1, 0, 0, 30, 0, time.UTC)
+func simpleTime(hours, minutes, seconds int) time.Time {
+	return time.Date(312, time.October, 28, hours, minutes, seconds, 0, time.UTC)
+}
 
-	want := clockface.Point{X: 150, Y: 150 + 90}
-	got := clockface.SecondHand(tm)
+func testName(t time.Time) string {
+	return t.Format("15:04:05")
+}
 
-	if got != want {
-		t.Errorf("Got %v, wanted %v", got, want)
+func containsLine(l Line, ls []Line) bool {
+	for _, line := range ls {
+		if line == l {
+			return true
+		}
 	}
+	return false
 }
