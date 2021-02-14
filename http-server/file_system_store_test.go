@@ -25,7 +25,7 @@ func TestFileSystemStore(t *testing.T) {
 		assertLeague(t, got, want)
 	})
 
-	t.Run("get player score", func(t *testing.T) {
+	t.Run("/get player score", func(t *testing.T) {
 		database := strings.NewReader(`[
 			{"Name": "Cleo", "Wins": 10},
 			{"Name": "Chris", "Wins": 33}]`)
