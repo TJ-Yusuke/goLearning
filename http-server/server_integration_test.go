@@ -7,7 +7,13 @@ import (
 )
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
-	store := NewInmemoryPlayerStore()
+	//store := NewInmemoryPlayerStore()
+	//server := NewPlayerServer(store)
+	//player := "Pepper"
+
+	database, cleanDatabase := createTempFile(t, "")
+	defer cleanDatabase()
+	store := &FileSystemPlayerStore{database}
 	server := NewPlayerServer(store)
 	player := "Pepper"
 

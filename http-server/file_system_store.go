@@ -15,7 +15,7 @@ func (f *FileSystemPlayerStore) GetLeague() League {
 	return league
 }
 
-func (f *FileSystemPlayerStore) GetPlayerStore(name string) int {
+func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
 
 	player := f.GetLeague().Find(name)
 
@@ -31,6 +31,8 @@ func (f *FileSystemPlayerStore) RecordWin(name string) {
 
 	if player != nil {
 		player.Wins++
+	} else {
+		league = append(league, Player{name, 1})
 	}
 
 	f.database.Seek(0, 0)
