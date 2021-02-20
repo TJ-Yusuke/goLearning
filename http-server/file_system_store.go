@@ -75,4 +75,5 @@ func (f *FileSystemPlayerStore) RecordWin(name string) {
 		f.league = append(f.league, Player{name, 1})
 	}
 
+	f.database.Encode(f.league)
 }
