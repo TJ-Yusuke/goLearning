@@ -2,11 +2,17 @@ package poker_test
 
 import (
 	poker "TJ-Yusuke/golearning/http-server"
+	"bytes"
 	"fmt"
 	"strings"
 	"testing"
 	"time"
 )
+
+var dummyBlindAlerter = &SpyBlindAlerter{}
+var dummyPlayerStore = &poker.StubPlayerStore{}
+var dummyStdIn = &bytes.Buffer{}
+var dummyStdOut = &bytes.Buffer{}
 
 type scheduledAlert struct {
 	at     time.Duration
@@ -28,6 +34,19 @@ func (s *SpyBlindAlerter) ScheduleAlertAt(duration time.Duration, amount int) {
 }
 
 func TestCLI(t *testing.T) {
+
+	t.Run("it prompts the user to enter the number of players", func(t *testing.T) {
+		stdout := &bytes.Buffer{}
+		cli := poker.NewCLI(dummyPlayerStore, dummyStdIn, stdout, dummyBlindAlerter)
+		cli.PlayPoker()
+
+		got := stdout.String()
+		want := "Please enter the number of players: "
+
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
 
 	t.Run("record chris win from user input", func(t *testing.T) {
 		in := strings.NewReader("Chris wins\n")
