@@ -26,17 +26,17 @@ type Player struct {
 	Wins int
 }
 
-const jsonContentType = "application/json"
-const htmlTemplatePath = "game.html"
+const JsonContentType = "application/json"
+const HtmlTemplatePath = "game.html"
 
 func NewPlayerServer(store PlayerStore) (*PlayerServer, error) {
 
 	p := new(PlayerServer)
 
-	tmpl, err := template.ParseFiles(htmlTemplatePath)
+	tmpl, err := template.ParseFiles(HtmlTemplatePath)
 
 	if err != nil {
-		return nil, fmt.Errorf("problem opening %s %v", htmlTemplatePath, err)
+		return nil, fmt.Errorf("problem opening %s %v", HtmlTemplatePath, err)
 	}
 
 	p.template = tmpl
@@ -54,7 +54,7 @@ func NewPlayerServer(store PlayerStore) (*PlayerServer, error) {
 }
 
 func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("content-type", jsonContentType)
+	w.Header().Set("content-type", JsonContentType)
 	json.NewEncoder(w).Encode(p.store.GetLeague())
 }
 
