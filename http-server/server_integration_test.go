@@ -1,6 +1,7 @@
-package poker
+package poker_test
 
 import (
+	poker "TJ-Yusuke/golearning/http-server"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -8,11 +9,11 @@ import (
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 
-	database, cleanDatabase := createTempFile(t, `[]`)
+	database, cleanDatabase := poker.CreateTempFile(t, `[]`)
 	defer cleanDatabase()
-	store, err := NewFileSystemPlayerStore(database)
+	store, err := poker.NewFileSystemPlayerStore(database)
 
-	assertNoError(t, err)
+	poker.AssertNoError(t, err)
 
 	server := mustMakePlayerServer(t, store)
 	player := "Pepper"
@@ -35,7 +36,7 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 		assertStatus(t, response.Code, http.StatusOK)
 
 		got := getLeagueFromResponse(t, response.Body)
-		want := []Player{
+		want := []poker.Player{
 			{"Pepper", 3},
 		}
 		assertLeague(t, got, want)
