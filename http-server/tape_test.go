@@ -1,15 +1,16 @@
-package poker
+package poker_test
 
 import (
+	poker "TJ-Yusuke/golearning/http-server"
 	"io/ioutil"
 	"testing"
 )
 
 func TestTape_Write(t *testing.T) {
-	file, clean := createTempFile(t, "12345")
+	file, clean := CreateTempFile(t, "12345")
 	defer clean()
 
-	tape := &tape{file}
+	tape := &poker.Tape{File: file}
 
 	tape.Write([]byte("abc"))
 
