@@ -9,13 +9,13 @@ import (
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 
-	database, cleanDatabase := poker.CreateTempFile(t, `[]`)
+	database, cleanDatabase := CreateTempFile(t, `[]`)
 	defer cleanDatabase()
 	store, err := poker.NewFileSystemPlayerStore(database)
 
-	poker.AssertNoError(t, err)
+	AssertNoError(t, err)
 
-	server := mustMakePlayerServer(t, store)
+	server := mustMakePlayerServer(t, store, dummyGame)
 	player := "Pepper"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
@@ -39,6 +39,6 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 		want := []poker.Player{
 			{"Pepper", 3},
 		}
-		assertLeague(t, got, want)
+		AssertLeague(t, got, want)
 	})
 }
